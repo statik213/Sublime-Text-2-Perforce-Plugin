@@ -1036,3 +1036,27 @@ class ShelveClCommand(threading.Thread):
                 resultchangelists.insert(0, "Changelist " + changelistlinesplit[1] + " - " + ' '.join(changelistlinesplit[7:])) 
 
         return resultchangelists
+
+
+class PerforceCopyDepotPathCommand(sublime_plugin.WindowCommand):
+    def run(self, *argv):
+        path = self.window.active_view().file_name()
+        folder_name, file = os.path.split(path)
+
+        success, output = PerforceCommandOnFile("where ", folder_name, path)
+
+        if not success:
+            sublime.status_message("Failed resolving depot-path")
+            print output
+            return
+
+        output = output.rstrip("\r\n").rstrip("\n")
+        # output looks like:
+        #  //path/in/depot //path/in/workspace /path/in/local/filesystem
+        # Parsing isn't straightforward if there are spaces in these paths...
+        depot, sep, rest = output.partition(" //")
+        if sep is not " //":
+            return
+
+        sublime.set_clipboard(depot)
+        sublime.status_message("Copied (%s) to clipboard" % depot)

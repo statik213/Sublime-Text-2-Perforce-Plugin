@@ -1,5 +1,10 @@
 [
     {
+        "id": "file",
+        "command": "perforce_copy_depot_path",
+        "caption": "Copy Perforce Depot Path"
+    },
+    {
         "caption": "-",
         "id": "separator"
     },
@@ -38,19 +43,9 @@
                 "caption": "Diff"
             },
             {
-                "caption": "Graphical Diff Against Depot",
-                "children":
-                [
-                    {
-                        "command": "perforce_graphical_diff_with_depot",
-                        "caption": "Diff"
-                    },
-                    {
-                        "command": "perforce_select_graphical_diff_application",
-                        "caption": "Select Diff Application"
-                    }
-                ]
-            },            
+                "command": "perforce_graphical_diff_with_depot",
+                "caption": "Graphical Diff"
+            },
             {
                 "command": "perforce_list_checked_out_files",
                 "caption": "List Checked Out Files"
@@ -88,10 +83,20 @@
             {
                 "command": "perforce_logout",
                 "caption": "Logout"
+            },
+            {
+                "caption": "Preferences",
+                "children":
+                [
+                    {
+                        "command": "perforce_select_graphical_diff_application",
+                        "caption": "Select Diff Application"
+                    }
+                ]
             }
         ]
     },
-	{
+    {
         "caption": "-",
         "id": "separator"
     }
